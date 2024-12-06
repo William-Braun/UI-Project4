@@ -16,6 +16,7 @@
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.7.1",
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
+    "@sveltejs/kit": "^2.9.0",
     "svelte-fa": "^4.0.3",
     "svelte-icons": "^2.1.0",
     "svelte-routing": "^2.13.0"

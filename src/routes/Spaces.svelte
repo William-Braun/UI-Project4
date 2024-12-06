@@ -1,5 +1,5 @@
 <script>
-  import { Users, Search } from 'svelte-icons/fa';
+  import { FaUsers, FaSearch } from 'svelte-icons/fa';
 
   const spaces = [
     { name: "Gardening Enthusiasts", members: 1250, description: "Share tips and tricks for growing beautiful gardens." },
@@ -16,7 +16,7 @@
   <div class="search-bar">
     <input type="text" placeholder="Search spaces..." />
     <button class="search-button">
-      <svelte:component this={Search} />
+      <svelte:component this={FaSearch} />
       Search
     </button>
   </div>
@@ -24,7 +24,7 @@
     {#each spaces as space}
       <div class="space-card">
         <h2>{space.name}</h2>
-        <p class="members"><svelte:component this={Users} /> {space.members} members</p>
+        <p class="members"><svelte:component this={FaUsers} /> {space.members} members</p>
         <p>{space.description}</p>
         <button class="join-button">Join Space</button>
       </div>

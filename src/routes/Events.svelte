@@ -1,5 +1,5 @@
 <script>
-  import { Calendar, Search, MapPin, Clock } from 'svelte-icons/fa';
+  import { FaCalendar, FaSearch, FaMapPin, FaClock } from 'svelte-icons/fa';
 
   const events = [
     { name: "Community Cleanup", date: "Dec 15, 2023", time: "9:00 AM", location: "Central Park", attendees: 50 },
@@ -16,7 +16,7 @@
   <div class="search-bar">
     <input type="text" placeholder="Search events..." />
     <button class="search-button">
-      <svelte:component this={Search} />
+      <svelte:component this={FaSearch} />
       Search
     </button>
   </div>
@@ -24,9 +24,9 @@
     {#each events as event}
       <div class="event-card">
         <h2>{event.name}</h2>
-        <p class="event-info"><svelte:component this={Calendar} /> {event.date}</p>
-        <p class="event-info"><svelte:component this={Clock} /> {event.time}</p>
-        <p class="event-info"><svelte:component this={MapPin} /> {event.location}</p>
+        <p class="event-info"><svelte:component this={FaCalendar} /> {event.date}</p>
+        <p class="event-info"><svelte:component this={FaClock} /> {event.time}</p>
+        <p class="event-info"><svelte:component this={FaMapPin} /> {event.location}</p>
         <p>{event.attendees} attendees</p>
         <button class="rsvp-button">RSVP</button>
       </div>

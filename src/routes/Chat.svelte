@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { Send } from 'svelte-icons/fa';
+  import { FaPaperPlane } from 'svelte-icons/fa';
 
   let messages = [
     { sender: 'John', message: "Hey, how are you?" },
@@ -56,7 +56,7 @@
         on:keypress={(e) => e.key === 'Enter' && handleSend()}
       />
       <button on:click={handleSend} class="send-button">
-        <svelte:component this={Send} />
+        <svelte:component this={FaPaperPlane} />
       </button>
     </div>
   </div>

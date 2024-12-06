@@ -1,12 +1,12 @@
 <script>
   import { Link } from "svelte-routing";
-  import { Calendar, Users, BookOpen, Coffee } from 'svelte-icons/fa';
+  import { FaCalendar, FaUsers, FaBookOpen, FaCoffee } from 'svelte-icons/fa';
 
   const features = [
-    { title: "Virtual Spaces", icon: Users, description: "Join topic-based rooms and connect with like-minded individuals.", link: "/spaces" },
-    { title: "Coffee Chats", icon: Coffee, description: "Have spontaneous 1-on-1 video calls with community members.", link: "/chat" },
-    { title: "Local Events", icon: Calendar, description: "Discover and join events happening in your area.", link: "/events" },
-    { title: "Community Forums", icon: BookOpen, description: "Engage in ongoing, structured discussions on various topics.", link: "/forums" }
+    { title: "Virtual Spaces", icon: FaUsers, description: "Join topic-based rooms and connect with like-minded individuals.", link: "/spaces" },
+    { title: "Coffee Chats", icon: FaCoffee, description: "Have spontaneous 1-on-1 video calls with community members.", link: "/chat" },
+    { title: "Local Events", icon: FaCalendar, description: "Discover and join events happening in your area.", link: "/events" },
+    { title: "Community Forums", icon: FaBookOpen, description: "Engage in ongoing, structured discussions on various topics.", link: "/forums" }
   ];
 
   const events = [
