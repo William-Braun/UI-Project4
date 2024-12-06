@@ -16,16 +16,14 @@
   ];
 </script>
 
-<section class="hero">
-  <div class="container">
+<div class="home-container">
+  <section class="hero">
     <h2>Welcome to Your Digital Neighborhood</h2>
     <p>Connect, share, and grow with your local community and beyond.</p>
     <Link to="/signup" class="cta-button">Join NeighborLink</Link>
-  </div>
-</section>
+  </section>
 
-<section class="features">
-  <div class="container">
+  <section class="features">
     <h3>Discover Our Features</h3>
     <div class="feature-grid">
       {#each features as feature}
@@ -37,11 +35,9 @@
         </div>
       {/each}
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="events">
-  <div class="container">
+  <section class="events">
     <h3>Upcoming Events</h3>
     <div class="event-grid">
       {#each events as event}
@@ -53,11 +49,11 @@
         </div>
       {/each}
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <style>
-  .container {
+  .home-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
@@ -67,6 +63,7 @@
     background-color: #e9ecef;
     padding: 4rem 0;
     text-align: center;
+    margin-bottom: 2rem;
   }
 
   .hero h2 {
@@ -95,7 +92,7 @@
   }
 
   .features, .events {
-    padding: 4rem 0;
+    margin-bottom: 4rem;
   }
 
   .features h3, .events h3 {

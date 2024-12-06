@@ -1,13 +1,16 @@
 <script>
-  import { Router, Link, Route } from "svelte-routing";
+  import { Router, Route, Link } from "svelte-routing";
   import MenuBar from "./components/MenuBar.svelte";
   import Home from "./routes/Home.svelte";
   import Spaces from "./routes/Spaces.svelte";
   import Events from "./routes/Events.svelte";
   import Chat from "./routes/Chat.svelte";
+
+  // Get the current path
+  let path = window.location.pathname;
 </script>
 
-<Router>
+<Router {path}>
   <div class="app-container">
     <MenuBar />
     <main>
@@ -40,6 +43,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #f8f9fa;
+    color: #333;
   }
 
   .app-container {
@@ -50,6 +55,7 @@
 
   main {
     flex-grow: 1;
+    padding: 20px;
   }
 
   footer {
@@ -65,6 +71,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    padding: 0 1rem;
   }
 
   .footer-info h2 {

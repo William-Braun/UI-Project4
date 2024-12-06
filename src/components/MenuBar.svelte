@@ -43,6 +43,8 @@
     list-style-type: none;
     display: flex;
     gap: 1rem;
+    margin: 0;
+    padding: 0;
   }
 
   nav a {
