@@ -1,7 +1,11 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { sveltekit } from '@sveltejs/kit/vite';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [svelte()],
-})
+/** @type {import('vite').UserConfig} */
+const config = {
+  plugins: [sveltekit()],
+  server: {
+    strictPort: true, // Ensures the port is strictly bound
+  }
+};
+
+export default config;

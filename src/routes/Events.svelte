@@ -1,9 +1,5 @@
 <script>
-<<<<<<< Updated upstream
-  import { FaCalendar, FaSearch, FaMapPin, FaClock } from 'svelte-icons/fa';
-=======
   import { FaCalendar, FaSearch, FaMapMarkerAlt, FaClock } from 'svelte-icons/fa';
->>>>>>> Stashed changes
 
   const events = [
     { name: "Community Cleanup", date: "Dec 15, 2023", time: "9:00 AM", location: "Central Park", attendees: 50 },
@@ -30,11 +26,7 @@
         <h2>{event.name}</h2>
         <p class="event-info"><svelte:component this={FaCalendar} /> {event.date}</p>
         <p class="event-info"><svelte:component this={FaClock} /> {event.time}</p>
-<<<<<<< Updated upstream
-        <p class="event-info"><svelte:component this={FaMapPin} /> {event.location}</p>
-=======
         <p class="event-info"><svelte:component this={FaMapMarkerAlt} /> {event.location}</p>
->>>>>>> Stashed changes
         <p>{event.attendees} attendees</p>
         <button class="rsvp-button">RSVP</button>
       </div>
