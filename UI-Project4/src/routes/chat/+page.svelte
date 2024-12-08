@@ -17,9 +17,9 @@
   </svelte:head>
   
   <div class="max-w-2xl mx-auto text-center" in:fade>
-    <h1 class="text-3xl font-bold text-center py-12">Coffee Chat</h1>
+    <h1 class="text-3xl font-bold text-center pt-12 pb-8">Coffee Chat</h1>
     
-    <p class="text-xl mb-8">Connect with a random community member for a casual 1-on-1 video chat.</p>
+    <p class="text-lg mb-8">Connect with a random community member for a casual 1-on-1 video chat.</p>
   
     <div class="bg-white p-8 rounded-lg shadow-md">
       {#if !isMatching && !matchFound}

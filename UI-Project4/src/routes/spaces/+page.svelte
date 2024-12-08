@@ -20,7 +20,9 @@
   </svelte:head>
   
   <div in:fade>
-    <h1 class="text-3xl font-bold text-center py-12">Virtual Spaces</h1>
+    <h1 class="text-3xl font-bold text-center pt-12 pb-8">Virtual Spaces</h1>
+
+    <p class="text-lg mb-8 text-center">Join a space that interests you and start connecting with like-minded individuals in your community!</p>
     
     <!-- Search Bar -->
     <div class="flex gap-2 mb-8 justify-center">
