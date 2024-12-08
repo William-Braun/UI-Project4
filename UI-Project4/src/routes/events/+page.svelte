@@ -1,24 +1,42 @@
 <script>
     import { fade } from 'svelte/transition';
-  
+    import { Search } from 'lucide-svelte'
+
     let events = [
       { id: 1, name: 'Community Garden Planting Day', date: '2023-12-15', time: '10:00 AM', icon: '🌻' },
       { id: 2, name: 'Local Author Book Signing', date: '2023-12-18', time: '2:00 PM', icon: '📚' },
       { id: 3, name: 'Neighborhood Cleanup Initiative', date: '2023-12-20', time: '9:00 AM', icon: '🧹' },
       { id: 4, name: 'Holiday Craft Fair', date: '2023-12-22', time: '11:00 AM', icon: '🎨' },
     ];
+
+    let searchQuery = '';
+
   </script>
   
   <svelte:head>
-    <title>Virtual Community Space - Local Events</title>
+    <title>NeighborLink - Local Events</title>
   </svelte:head>
   
   <div in:fade>
-    <h1 class="text-4xl font-bold mb-8 text-center">Local Events</h1>
+    <h1 class="text-3xl font-bold text-center py-12">Local Events</h1>
     
-    <p class="text-xl mb-8 text-center">Discover and participate in events happening in your community!</p>
+    <!-- Search Bar -->
+    <div class="flex gap-2 mb-8 justify-center">
+      <div class="flex-1 relative max-w-7xl">
+        <input
+          type="text"
+          placeholder="Search events..."
+          bind:value={searchQuery}
+          class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-custom-blue"
+        />
+        <Search class="absolute right-3 top-2.5 text-gray-400" size={20} />
+      </div>
+      <button class="bg-[#4C7BFF] text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors">
+        Search
+      </button>
+    </div>
   
-    <div class="space-y-6">
+    <div class="space-y-6 mb-12">
       {#each events as event}
         <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
           <div class="text-4xl mr-6">{event.icon}</div>

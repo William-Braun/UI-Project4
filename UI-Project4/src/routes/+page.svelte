@@ -1,40 +1,103 @@
 <script>
-    import { fade } from 'svelte/transition';
-  </script>
-  
-  <svelte:head>
-    <title>Virtual Community Space - Home</title>
-  </svelte:head>
-  
-  <div class="max-w-4xl mx-auto" in:fade>
-    <h1 class="text-4xl font-bold mb-8 text-center">Welcome to Our Virtual Community Space</h1>
+  import { Users, Coffee, Calendar, MessageSquare } from 'lucide-svelte';
+  import { fade } from 'svelte/transition';
+
+  const upcomingEvents = [
+    {
+      title: 'Virtual Book Club',
+      date: 'Dec 10, 2023',
+      attendees: 15
+    },
+    {
+      title: 'Local Gardening Workshop',
+      date: 'Dec 12, 2023',
+      attendees: 8
+    },
+    {
+      title: 'Community Game Night',
+      date: 'Dec 15, 2023',
+      attendees: 20
+    }
+  ];
+</script>
+
+<svelte:head>
+  <title>NeighborLink - Home</title>
+</svelte:head>
+
+<div class="min-h-screen flex flex-col" in:fade>
+  <!-- Hero Section -->
+  <div class="flex justify-center">
+    <div class="bg-[#DDEAFD] w-[70%] py-16 px-4 text-center">
+      <h1 class="text-4xl font-bold mb-4">Welcome to Your Digital Neighborhood</h1>
+      <p class="text-lg text-gray-900 mb-8">Connect, share, and grow with your local community and beyond.</p>
+      <button class="bg-[#4C7BFF] text-white text-lg font-semibold px-6 py-2 rounded hover:bg-blue-600 transition-colors">
+        Join NeighborLink
+      </button>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="max-w-7xl mx-auto px-4 py-16 w-full">
+    <h2 class="text-2xl font-bold text-center mb-12">Discover Our Features</h2>
     
-    <p class="text-xl mb-8 text-center">Connect with your neighbors, join interest groups, and participate in local events - all from the comfort of your home.</p>
-    
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Virtual Spaces</h2>
-        <p>Join interest-based groups and connect with like-minded individuals in your community.</p>
-        <a href="/spaces" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Explore Spaces</a>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="bg-white p-6 rounded shadow">
+        <div class="text-[#4C7BFF] mb-4">
+          <Users size={24} />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Virtual Spaces</h3>
+        <p class="text-gray-600 text-sm">Join topic-based rooms and connect with like-minded individuals.</p>
       </div>
-      
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Coffee Chat</h2>
-        <p>Have a casual one-on-one video call with a random community member.</p>
-        <a href="/coffee-chat" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Start a Chat</a>
+
+      <div class="bg-white p-6 rounded shadow">
+        <div class="text-[#4C7BFF] mb-4">
+          <Coffee size={24} />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Coffee Chats</h3>
+        <p class="text-gray-600 text-sm">Have spontaneous 1-on-1 video calls with community members.</p>
       </div>
-      
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Local Events</h2>
-        <p>Discover and participate in events happening in your neighborhood.</p>
-        <a href="/events" class="mt-4 inline-block bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">View Events</a>
+
+      <div class="bg-white p-6 rounded shadow">
+        <div class="text-[#4C7BFF] mb-4">
+          <Calendar size={24} />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Local Events</h3>
+        <p class="text-gray-600 text-sm">Discover and join events happening in your area.</p>
       </div>
-      
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Safe Environment</h2>
-        <p>Our platform is moderated to ensure a respectful and inclusive community for all members.</p>
+
+      <div class="bg-white p-6 rounded shadow">
+        <div class="text-[#4C7BFF] mb-4">
+          <MessageSquare size={24} />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Community Forums</h3>
+        <p class="text-gray-600 text-sm">Engage in ongoing, structured discussions on various topics.</p>
       </div>
     </div>
   </div>
-  
-  
+
+  <!-- Upcoming Events Section -->
+  <div class="max-w-7xl mx-auto px-4 pb-16 w-full">
+    <h2 class="text-2xl font-bold text-center mb-12">Upcoming Events</h2>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {#each upcomingEvents as event}
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="font-semibold text-lg mb-2">{event.title}</h3>
+          <p class="text-gray-600 text-sm mb-2">{event.date}</p>
+          <p class="text-gray-600 text-sm mb-4">{event.attendees} attendees</p>
+          <button class="bg-[#4C7BFF] text-white px-4 py-1 rounded text-sm hover:bg-blue-600 transition-colors">
+            RSVP
+          </button>
+        </div>
+      {/each}
+    </div>
+  </div>
+</div>
+
+<style>
+  :global(body) {
+    background-color: #f8fafc;
+  }
+</style>
+

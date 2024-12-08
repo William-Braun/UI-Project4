@@ -13,11 +13,11 @@
   </script>
   
   <svelte:head>
-    <title>Virtual Community Space - Coffee Chat</title>
+    <title>NeighborLink - Coffee Chat</title>
   </svelte:head>
   
   <div class="max-w-2xl mx-auto text-center" in:fade>
-    <h1 class="text-4xl font-bold mb-8">Coffee Chat</h1>
+    <h1 class="text-3xl font-bold text-center py-12">Coffee Chat</h1>
     
     <p class="text-xl mb-8">Connect with a random community member for a casual 1-on-1 video chat.</p>
   
