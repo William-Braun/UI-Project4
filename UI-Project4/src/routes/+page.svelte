@@ -4,19 +4,28 @@
 
   const upcomingEvents = [
     {
-      title: 'Virtual Book Club',
-      date: 'Dec 10, 2023',
-      attendees: 15
-    },
-    {
-      title: 'Local Gardening Workshop',
-      date: 'Dec 12, 2023',
-      attendees: 8
-    },
-    {
-      title: 'Community Game Night',
+      id: 1,
+      title: 'Community Garden Planting Day',
       date: 'Dec 15, 2023',
-      attendees: 20
+      time: '10:00 AM',
+      icon: '🌻',
+      attendees: 25
+    },
+    {
+      id: 2,
+      title: 'Local Author Book Signing',
+      date: 'Dec 18, 2023',
+      time: '2:00 PM',
+      icon: '📚',
+      attendees: 40
+    },
+    {
+      id: 3,
+      title: 'Neighborhood Cleanup Initiative',
+      date: 'Dec 21, 2023',
+      time: '9:00 AM',
+      icon: '🧹',
+      attendees: 15
     }
   ];
 </script>
@@ -83,8 +92,9 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {#each upcomingEvents as event}
         <div class="bg-white p-6 rounded shadow">
+          <div class="text-4xl mb-4">{event.icon}</div>
           <h3 class="font-semibold text-lg mb-2">{event.title}</h3>
-          <p class="text-gray-600 text-sm mb-2">{event.date}</p>
+          <p class="text-gray-600 text-sm mb-2">{event.date} at {event.time}</p>
           <p class="text-gray-600 text-sm mb-4">{event.attendees} attendees</p>
           <button class="bg-[#4C7BFF] text-white px-4 py-1 rounded text-sm hover:bg-blue-600 transition-colors">
             RSVP

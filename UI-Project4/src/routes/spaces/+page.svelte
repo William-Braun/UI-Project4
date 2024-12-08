@@ -13,6 +13,11 @@
 
     let searchQuery = '';
 
+    // filter spaces based on search query
+    $: filteredSpaces = spaces.filter(space =>
+      space.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
   </script>
   
   <svelte:head>
@@ -41,7 +46,7 @@
     </div>
   
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      {#each spaces as space}
+      {#each filteredSpaces as space}
         <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
           <!-- Icon -->
           <div class="text-4xl mb-4 text-center">{space.icon}</div>

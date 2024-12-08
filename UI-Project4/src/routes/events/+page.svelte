@@ -3,13 +3,18 @@
     import { Search } from 'lucide-svelte'
 
     let events = [
-      { id: 1, name: 'Community Garden Planting Day', date: '2023-12-15', time: '10:00 AM', icon: '🌻' },
-      { id: 2, name: 'Local Author Book Signing', date: '2023-12-18', time: '2:00 PM', icon: '📚' },
-      { id: 3, name: 'Neighborhood Cleanup Initiative', date: '2023-12-20', time: '9:00 AM', icon: '🧹' },
-      { id: 4, name: 'Holiday Craft Fair', date: '2023-12-22', time: '11:00 AM', icon: '🎨' },
+      { id: 1, name: 'Community Garden Planting Day', date: '2023-12-15', time: '10:00 AM', icon: '🌻', attendees: 25 },
+      { id: 2, name: 'Local Author Book Signing', date: '2023-12-18', time: '2:00 PM', icon: '📚', attendees: 40 },
+      { id: 3, name: 'Neighborhood Cleanup Initiative', date: '2023-12-20', time: '9:00 AM', icon: '🧹', attendees: 15 },
+      { id: 4, name: 'Holiday Craft Fair', date: '2023-12-22', time: '11:00 AM', icon: '🎨', attendees: 50 },
     ];
 
     let searchQuery = '';
+
+    // filter events based on search query
+    $: filteredEvents = events.filter(event =>
+      event.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
   </script>
   
@@ -39,13 +44,14 @@
     </div>
   
     <div class="space-y-6 mb-12">
-      {#each events as event}
+      {#each filteredEvents as event}
         <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
           <div class="text-4xl mr-6">{event.icon}</div>
           <div class="flex-grow">
             <h2 class="text-2xl font-semibold mb-2">{event.name}</h2>
             <p class="text-gray-600">Date: {event.date}</p>
             <p class="text-gray-600">Time: {event.time}</p>
+            <p class="text-gray-600">{event.attendees} attendees</p>
           </div>
           <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">RSVP</button>
         </div>
