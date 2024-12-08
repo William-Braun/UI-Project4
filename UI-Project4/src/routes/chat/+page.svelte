@@ -1,33 +1,64 @@
 <script>
   import { fade } from 'svelte/transition';
-  
+
   let isMatching = false;
   let matchFound = false;
   let selectedInterests = [];  // Array to store selected interests
   let userInterests = ['Gardening', 'Books', 'Tech', 'Fitness', 'Cooking', 'History'];
 
   let mockMatches = [
-    { name: 'John Doe', interests: ['Books', 'Tech'], profilePicture: 'https://via.placeholder.com/50' },
-    { name: 'Jane Smith', interests: ['Gardening', 'Fitness'], profilePicture: 'https://via.placeholder.com/50' },
-    { name: 'Alex Lee', interests: ['Cooking', 'History'], profilePicture: 'https://via.placeholder.com/50' },
+    { name: 'John Doe', interests: ['Books', 'Tech'] },
+    { name: 'Jane Smith', interests: ['Gardening', 'Fitness'] },
+    { name: 'Alex Jones', interests: ['Cooking', 'History'] },
   ];
 
+  // Toggle the selected interest (add/remove from the array)
   function toggleInterest(interest) {
-    const index = selectedInterests.indexOf(interest);
-    if (index === -1) {
-      selectedInterests.push(interest); // Add the interest to the list
+    if (selectedInterests.includes(interest)) {
+      selectedInterests = selectedInterests.filter(i => i !== interest);
     } else {
-      selectedInterests.splice(index, 1); // Remove the interest from the list
+      selectedInterests = [...selectedInterests, interest];
     }
   }
 
+  // Find matches based on selected interests
+  function findMatches() {
+    return mockMatches.filter(match => 
+      match.interests.some(interest => selectedInterests.includes(interest))
+    );
+  }
+
+  // Start matching function (simulates a match)
   function startMatching() {
     isMatching = true;
+    matchFound = false;  // Reset matchFound before starting matching
+
+    // Simulate a matching process with a timeout
     setTimeout(() => {
-      isMatching = false;
-      matchFound = true;
-    }, 3000);
+      const matches = findMatches(); // Get matching results
+      matchFound = matches.length > 0; // If matches found, set matchFound to true
+
+      if (matchFound) {
+        // If matches are found, store them for display
+        mockMatches = matches;
+      }
+      
+      isMatching = false; // Stop the matching process after timeout
+    }, 2000); // Adjusted timeout to 2 seconds for quicker testing
   }
+
+  // Go back to the interests selection (reset the matching state)
+  function goBackToChat() {
+    isMatching = false;
+    matchFound = false;
+    selectedInterests = [];  // Optionally reset the selected interests too
+    mockMatches = [
+      { name: 'John Doe', interests: ['Books', 'Tech'] },
+      { name: 'Jane Smith', interests: ['Gardening', 'Fitness'] },
+      { name: 'Alex Jones', interests: ['Cooking', 'History'] },
+    ];  // Reset mock matches
+  }
+
 </script>
 
 <svelte:head>
@@ -36,7 +67,7 @@
 
 <div class="max-w-2xl mx-auto text-center" in:fade>
   <h1 class="text-3xl font-bold text-center pt-12 pb-8">Coffee Chat</h1>
-  <p class="text-lg mb-8">Connect with a random community member for a casual 1-on-1 video chat!</p>
+  <p class="text-lg mb-8">Connect with a random community member for a casual 1-on-1 chat!</p>
 
   <div class="bg-white p-8 rounded-lg shadow-md">
     {#if !isMatching && !matchFound}
@@ -65,9 +96,22 @@
       <p class="text-xl mb-4">Finding a match...</p>
       <div class="loader mx-auto"></div>
     {:else}
-      <p class="text-xl mb-4">Match found! Click the button below to start your chat.</p>
-      <button class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700">
-        Start Chat
+      {#if matchFound}
+        <p class="text-xl mb-4">Match found! Check out the matches below:</p>
+        {#each mockMatches as match}
+          <div class="bg-gray-100 p-4 mb-4 rounded-md flex items-center">
+            <div>
+              <p class="font-semibold text-left hover:text-blue-600 hover:underline">{match.name}</p>
+              <p>{match.interests.join(', ')}</p>
+            </div>
+          </div>
+        {/each}
+      {:else}
+        <p class="text-xl mb-4">No matches found. Try selecting different interests.</p>
+      {/if}
+      <!-- Back Button -->
+      <button on:click={goBackToChat} class="mt-4 text-blue-600 hover:underline">
+        ← Back to Chat Page
       </button>
     {/if}
   </div>

@@ -64,7 +64,7 @@
           <Coffee size={24} />
         </div>
         <h3 class="font-semibold text-lg mb-2">Coffee Chats</h3>
-        <p class="text-gray-600 text-sm">Have spontaneous 1-on-1 video calls with community members.</p>
+        <p class="text-gray-600 text-sm">Have spontaneous 1-on-1 chats with community members.</p>
       </div>
 
       <div class="bg-white p-6 rounded shadow">
