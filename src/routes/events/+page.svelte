@@ -3,10 +3,10 @@
     import { Search } from 'lucide-svelte'
 
     let events = [
-      { id: 1, name: 'Community Garden Planting Day', date: '2023-12-15', time: '10:00 AM', icon: '🌻', attendees: 25 },
-      { id: 2, name: 'Local Author Book Signing', date: '2023-12-18', time: '2:00 PM', icon: '📚', attendees: 40 },
-      { id: 3, name: 'Neighborhood Cleanup Initiative', date: '2023-12-20', time: '9:00 AM', icon: '🧹', attendees: 15 },
-      { id: 4, name: 'Holiday Craft Fair', date: '2023-12-22', time: '11:00 AM', icon: '🎨', attendees: 50 },
+      { id: 1, name: 'Community Garden Planting Day', date: 'Dec 15, 2024', time: '10:00 AM', icon: '🌻', attendees: 25 },
+      { id: 2, name: 'Local Author Book Signing', date: 'Dec 18, 2024', time: '2:00 PM', icon: '📚', attendees: 40 },
+      { id: 3, name: 'Neighborhood Cleanup Initiative', date: 'Dec 21, 2024', time: '9:00 AM', icon: '🧹', attendees: 15 },
+      { id: 4, name: 'Holiday Craft Fair', date: 'Dec 22, 2024', time: '11:00 AM', icon: '🎨', attendees: 50 },
     ];
 
     let searchQuery = '';

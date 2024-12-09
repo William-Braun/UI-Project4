@@ -6,7 +6,7 @@
     {
       id: 1,
       title: 'Community Garden Planting Day',
-      date: 'Dec 15, 2023',
+      date: 'Dec 15, 2024',
       time: '10:00 AM',
       icon: '🌻',
       attendees: 25
@@ -14,7 +14,7 @@
     {
       id: 2,
       title: 'Local Author Book Signing',
-      date: 'Dec 18, 2023',
+      date: 'Dec 18, 2024',
       time: '2:00 PM',
       icon: '📚',
       attendees: 40
@@ -22,7 +22,7 @@
     {
       id: 3,
       title: 'Neighborhood Cleanup Initiative',
-      date: 'Dec 21, 2023',
+      date: 'Dec 21, 2024',
       time: '9:00 AM',
       icon: '🧹',
       attendees: 15
