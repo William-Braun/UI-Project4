@@ -1,103 +1,53 @@
 <script>
-    import MenuBar from "../lib/components/MenuBar.svelte";
-  </script>
-  
-  <div class="app-container">
-    <MenuBar />
-    <main>
-      <slot /> <!-- Renders the content of child routes -->
-    </main>
-    <footer>
-      <div class="footer-content">
-        <div class="footer-info">
-          <h2>NeighborLink</h2>
-          <p>Connecting communities, one click at a time.</p>
-        </div>
-        <div class="newsletter">
-          <h3>Stay Connected</h3>
-          <form>
-            <input type="email" placeholder="Enter your email" />
-            <button type="submit">Subscribe</button>
-          </form>
+  import { page } from '$app/stores';
+  import '../app.css';
+</script>
+
+<div class="min-h-screen flex flex-col">
+  <header class="bg-[#4C7BFF] text-white">
+    <nav class="max-w-7xl mx-auto px-6 py-4">
+      <ul class="flex space-x-6 justify-center">
+        <li><a href="/" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/' ? 'font-semibold' : ''}">Home</a></li>
+        <li><a href="/spaces" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/spaces' ? 'font-semibold' : ''}">Spaces</a></li>
+        <li><a href="/events" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/events' ? 'font-semibold' : ''}">Events</a></li>
+        <li><a href="/chat" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/chat' ? 'font-semibold' : ''}">Chat</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <slot />
+
+  <!-- Footer -->
+  <div class="mt-auto bg-[#4C7BFF] text-white py-6">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+      <div>
+        <h3 class="font-semibold text-2xl mb-2">NeighborLink</h3>
+        <p class="text-base text-blue-100">Connecting communities, one click at a time.</p>
+      </div>
+      <div class="mt-4 md:mt-0">
+        <h4 class="text-lg font-semibold mb-2">Stay Connected</h4>
+        <div class="flex gap-2">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            class="px-3 py-1 rounded text-gray-800 text-base"
+          />
+          <button class="bg-white text-[#4C7BFF] px-4 py-1 rounded text-base hover:bg-blue-100 transition-colors">
+            Subscribe
+          </button>
         </div>
       </div>
-    </footer>
+    </div>
   </div>
-  
-  <style>
-    :global(body) {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background-color: #f8f9fa;
-      color: #333;
-    }
-  
-    .app-container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-  
-    main {
-      flex-grow: 1;
-      padding: 20px;
-    }
-  
-    footer {
-      background-color: #3498db;
-      color: white;
-      padding: 2rem 0;
-    }
-  
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 0 1rem;
-    }
-  
-    .footer-info h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-  
-    .newsletter h3 {
-      margin-bottom: 1rem;
-    }
-  
-    .newsletter form {
-      display: flex;
-    }
-  
-    .newsletter input {
-      padding: 0.5rem;
-      border: none;
-      border-radius: 4px 0 0 4px;
-    }
-  
-    .newsletter button {
-      padding: 0.5rem 1rem;
-      background-color: #2980b9;
-      color: white;
-      border: none;
-      border-radius: 0 4px 4px 0;
-      cursor: pointer;
-    }
-  
-    @media (max-width: 768px) {
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-  
-      .footer-info,
-      .newsletter {
-        margin-bottom: 1rem;
-      }
-    }
-  </style>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :global(body) {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+

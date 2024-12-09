@@ -1,128 +1,78 @@
 <script>
-    import { FaUsers, FaSearch } from 'svelte-icons/fa';
+    import { fade } from 'svelte/transition';
+    import { Search, Users } from 'lucide-svelte'
   
-    const spaces = [
-      { name: "Gardening Enthusiasts", members: 1250, description: "Share tips and tricks for growing beautiful gardens." },
-      { name: "Book Lovers Club", members: 3000, description: "Discuss your favorite books and discover new reads." },
-      { name: "Local Foodies", members: 2100, description: "Explore local cuisine and share restaurant recommendations." },
-      { name: "Tech Talk", members: 1800, description: "Stay up-to-date with the latest in technology and gadgets." },
-      { name: "Fitness Friends", members: 2500, description: "Motivate each other to stay fit and healthy." },
-      { name: "Art & Creativity", members: 1600, description: "Share your artwork and get inspired by others." },
+    let spaces = [
+      { id: 1, name: 'Gardening Enthusiasts', description: "Share tips and tricks for growing beautiful gardens.", members: 150, icon: '🌱' },
+      { id: 2, name: 'Book Lovers Club', description: "Discuss your favorite books and discover new reads.", members: 200, icon: '📚' },
+      { id: 3, name: 'Local History Buffs', description: "Dive into the past and share fascinating stories and facts about your community's history.", members: 75, icon: '🏛️' },
+      { id: 4, name: 'Fitness and Wellness', description: "Share workout routines, wellness tips, and motivation to lead a healthier, balanced lifestyle.", members: 180, icon: '🏋️‍♀️' },
+      { id: 5, name: 'Tech Talk', description: "Stay up-to-date with the latest in technology and gadgets.", members: 120, icon: '💻' },
+      { id: 6, name: 'Cooking and Recipes', description: "Showcase your favorite homemade meals and share tips for creating delicious dishes.", members: 160, icon: '👨‍🍳' },
     ];
+
+    let searchQuery = '';
+
+    // filter spaces based on search query
+    $: filteredSpaces = spaces.filter(space =>
+      space.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
   </script>
   
-  <div class="container">
-    <h1>Virtual Spaces</h1>
-    <div class="search-bar">
-      <input type="text" placeholder="Search spaces..." />
-      <button class="search-button">
-        <svelte:component this={FaSearch} />
+  <svelte:head>
+    <title>NeighborLink - Spaces</title>
+  </svelte:head>
+  
+  <div in:fade>
+    <h1 class="text-3xl font-bold text-center pt-12 pb-8">Virtual Spaces</h1>
+
+    <p class="text-lg mb-8 text-center">Join a space that interests you and start connecting with like-minded individuals in your community!</p>
+    
+    <!-- Search Bar -->
+    <div class="flex gap-2 mb-8 justify-center">
+      <div class="flex-1 relative max-w-7xl">
+        <input
+          type="text"
+          placeholder="Search spaces..."
+          bind:value={searchQuery}
+          class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-custom-blue"
+        />
+        <Search class="absolute right-3 top-2.5 text-gray-400" size={20} />
+      </div>
+      <button class="bg-[#4C7BFF] text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors">
         Search
       </button>
     </div>
-    <div class="spaces-grid">
-      {#each spaces as space}
-        <div class="space-card">
-          <h2>{space.name}</h2>
-          <p class="members"><svelte:component this={FaUsers} /> {space.members} members</p>
-          <p>{space.description}</p>
-          <button class="join-button">Join Space</button>
+  
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      {#each filteredSpaces as space}
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
+          <!-- Icon -->
+          <div class="text-4xl mb-4 text-center">{space.icon}</div>
+    
+          <!-- Name -->
+          <h2 class="text-2xl font-semibold text-center mb-2">{space.name}</h2>
+    
+          <!-- Description and Button -->
+          <div class="flex flex-col justify-between flex-grow">
+            <!-- Description -->
+            <p class="text-base text-center mb-4">{space.description}</p>
+    
+            <!-- Members -->
+            <div class="flex items-center justify-center text-gray-600 mb-3">
+              <Users size={16} class="mr-1" />
+              <span class="text-sm">{space.members} members</span>
+            </div>
+    
+            <!-- Button -->
+            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 self-center">
+              Join Space
+            </button>
+          </div>
         </div>
       {/each}
     </div>
   </div>
-  
-  <style>
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-  
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-  
-    .search-bar {
-      display: flex;
-      margin-bottom: 2rem;
-    }
-  
-    .search-bar input {
-      flex-grow: 1;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px 0 0 4px;
-    }
-  
-    .search-button {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 0 4px 4px 0;
-      cursor: pointer;
-    }
-  
-    .search-button :global(svg) {
-      width: 16px;
-      height: 16px;
-      margin-right: 0.5rem;
-    }
-  
-    .spaces-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-  
-    .space-card {
-      background-color: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-  
-    .space-card h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-  
-    .members {
-      display: flex;
-      align-items: center;
-      color: #666;
-      margin-bottom: 1rem;
-    }
-  
-    .members :global(svg) {
-      width: 16px;
-      height: 16px;
-      margin-right: 0.5rem;
-    }
-  
-    .join-button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-  
-    .join-button:hover {
-      background-color: #2980b9;
-    }
-  
-    @media (max-width: 768px) {
-      .spaces-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
   
   

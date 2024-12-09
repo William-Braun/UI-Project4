@@ -1,169 +1,141 @@
 <script>
-    import { onMount } from 'svelte';
-    import { FaPaperPlane } from 'svelte-icons/fa';
-  
-    let messages = [
-      { sender: 'John', message: "Hey, how are you?" },
-      { sender: 'You', message: "I'm doing great, thanks! How about you?" },
-      { sender: 'John', message: "I'm good too. Did you hear about the community event next week?" },
-      { sender: 'You', message: "No, I haven't. What's happening?" },
-      { sender: 'John', message: "There's a neighborhood cleanup drive. Want to join?" },
-      { sender: 'You', message: "Sounds great! Count me in." },
-    ];
-  
-    let newMessage = '';
-    let chatContainer;
-  
-    function handleSend() {
-      if (newMessage.trim()) {
-        messages = [...messages, { sender: 'You', message: newMessage }];
-        newMessage = '';
-      }
+  import { fade } from 'svelte/transition';
+
+  let isMatching = false;
+  let matchFound = false;
+  let checkFound = false;
+  let selectedInterests = [];  // Array to store selected interests
+  let userInterests = ['Gardening', 'Books', 'Tech', 'Fitness', 'Cooking', 'History'];
+
+  let mockMatches = [
+    { name: 'John Doe', interests: ['Books', 'Tech'] },
+    { name: 'Jane Smith', interests: ['Gardening', 'Fitness'] },
+    { name: 'Alex Jones', interests: ['Cooking', 'History'] },
+  ];
+
+  // Toggle the selected interest
+  function toggleInterest(interest) {
+    if (selectedInterests.includes(interest)) {
+      selectedInterests = selectedInterests.filter(i => i !== interest);
+    } else {
+      selectedInterests = [...selectedInterests, interest];
     }
-  
-    onMount(() => {
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    });
-  
-    $: {
-      if (chatContainer) {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
+
+  // Find matches based on selected interests
+  function findMatches() {
+    return mockMatches.filter(match =>
+      match.interests.some(interest => selectedInterests.includes(interest))
+    );
+  }
+
+  // Start matching function 
+  function startMatching() {
+    isMatching = true;
+    matchFound = false; 
+    checkFound = false;
+    console.log("Matching started...");
+
+    // Simulate a matching process with a timeout
+    setTimeout(() => {
+      const matches = findMatches(); 
+      if (matches.length > 0) {
+        matchFound = true;  
+        mockMatches = matches; 
+        console.log("Matches found:", matches);
+      } else {
+        matchFound = false; 
+        console.log("No matches found.");
       }
-    }
-  </script>
-  
-  <div class="container">
-    <h1>Chat</h1>
-    <div class="chat-container">
-      <div class="chat-header">
-        <h2>Chat with John</h2>
-        <p>Last active 5 minutes ago</p>
+
+      isMatching = false; 
+      checkFound = true;
+    }, 2000); // Simulate matching for 2 seconds
+  }
+
+  // Go back to the interests selection
+  function goBackToChat() {
+    isMatching = false;
+    matchFound = false;  
+    checkFound = false;
+    selectedInterests = []; 
+    mockMatches = [
+      { name: 'John Doe', interests: ['Books', 'Tech'] },
+      { name: 'Jane Smith', interests: ['Gardening', 'Fitness'] },
+      { name: 'Alex Jones', interests: ['Cooking', 'History'] },
+    ];  // Reset mock matches to initial state
+    console.log("Back to interests page.");
+  }
+</script>
+
+<svelte:head>
+  <title>NeighborLink - Coffee Chat</title>
+</svelte:head>
+
+<div class="max-w-2xl mx-auto text-center" in:fade>
+  <h1 class="text-3xl font-bold text-center pt-12 pb-8">Coffee Chat</h1>
+  <p class="text-lg mb-8">Connect with a random community member for a casual 1-on-1 chat!</p>
+
+  <div class="bg-white p-8 rounded-lg shadow-md">
+    {#if !isMatching && !checkFound} 
+      <div>
+        <h2 class="text-xl mb-4">Select Your Interests</h2>
+        <div class="flex flex-wrap justify-center gap-4 mb-6">
+          {#each userInterests as interest}
+            <button
+              class="px-4 py-2 border rounded-md"
+              class:bg-blue-600={selectedInterests.includes(interest)}
+              class:text-white={selectedInterests.includes(interest)}
+              on:click={() => toggleInterest(interest)}
+            >
+              {interest}
+            </button>
+          {/each}
+        </div>
+        <button
+          on:click={startMatching}
+          class="bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-700"
+        >
+          Start Matching
+        </button>
       </div>
-      <div class="chat-messages" bind:this={chatContainer}>
-        {#each messages as msg}
-          <div class="message {msg.sender === 'You' ? 'sent' : 'received'}">
-            <div class="message-content">
-              {msg.message}
+    {:else if isMatching}
+      <p class="text-xl mb-4">Finding a match...</p>
+      <div class="loader mx-auto"></div>
+    {:else}
+      {#if matchFound} <!-- When match is found -->
+        <p class="text-xl mb-4">Match found! Check out the matches below:</p>
+        {#each mockMatches as match}
+          <div class="bg-gray-100 p-4 mb-4 rounded-md flex items-center">
+            <div>
+              <p class="font-semibold text-left hover:text-blue-600 hover:underline">{match.name}</p>
+              <p>{match.interests.join(', ')}</p>
             </div>
           </div>
         {/each}
-      </div>
-      <div class="chat-input">
-        <input 
-          type="text" 
-          bind:value={newMessage} 
-          placeholder="Type a message..." 
-          on:keypress={(e) => e.key === 'Enter' && handleSend()}
-        />
-        <button on:click={handleSend} class="send-button">
-          <svelte:component this={FaPaperPlane} />
-        </button>
-      </div>
-    </div>
+      {:else} <!-- When no match is found -->
+        <p class="text-xl mb-4">No matches found. Try selecting different interests.</p>
+      {/if}
+      <!-- Back Button -->
+      <button on:click={goBackToChat} class="mt-4 text-blue-600 hover:underline">
+        ← Back to Chat Page
+      </button>
+    {/if}
   </div>
-  
-  <style>
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-  
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-  
-    .chat-container {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
-  
-    .chat-header {
-      background-color: #3498db;
-      color: white;
-      padding: 1rem;
-    }
-  
-    .chat-header h2 {
-      margin: 0;
-      font-size: 1.2rem;
-    }
-  
-    .chat-header p {
-      margin: 0;
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-  
-    .chat-messages {
-      height: 400px;
-      overflow-y: auto;
-      padding: 1rem;
-    }
-  
-    .message {
-      margin-bottom: 1rem;
-      display: flex;
-    }
-  
-    .message-content {
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      max-width: 70%;
-    }
-  
-    .sent {
-      justify-content: flex-end;
-    }
-  
-    .sent .message-content {
-      background-color: #3498db;
-      color: white;
-    }
-  
-    .received .message-content {
-      background-color: #f1f0f0;
-    }
-  
-    .chat-input {
-      display: flex;
-      padding: 1rem;
-      border-top: 1px solid #e0e0e0;
-    }
-  
-    .chat-input input {
-      flex-grow: 1;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-right: 0.5rem;
-    }
-  
-    .send-button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  
-    .send-button :global(svg) {
-      width: 16px;
-      height: 16px;
-    }
-  
-    @media (max-width: 768px) {
-      .chat-messages {
-        height: 300px;
-      }
-    }
-  </style>
-  
-  
+</div>
+
+<style>
+  .loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>

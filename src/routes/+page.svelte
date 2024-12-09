@@ -1,172 +1,113 @@
 <script>
-    import { Link } from "svelte-routing";
-    import { FaCalendar, FaUsers, FaBookOpen, FaCoffee } from 'svelte-icons/fa';
-  
-    const features = [
-      { title: "Virtual Spaces", icon: FaUsers, description: "Join topic-based rooms and connect with like-minded individuals.", link: "/spaces" },
-      { title: "Coffee Chats", icon: FaCoffee, description: "Have spontaneous 1-on-1 video calls with community members.", link: "/chat" },
-      { title: "Local Events", icon: FaCalendar, description: "Discover and join events happening in your area.", link: "/events" },
-      { title: "Community Forums", icon: FaBookOpen, description: "Engage in ongoing, structured discussions on various topics.", link: "/forums" }
-    ];
-  
-    const events = [
-      { title: "Virtual Book Club", date: "Dec 10, 2023", attendees: 15 },
-      { title: "Local Gardening Workshop", date: "Dec 12, 2023", attendees: 8 },
-      { title: "Community Game Night", date: "Dec 15, 2023", attendees: 20 }
-    ];
-  </script>
-  
-  <div class="home-container">
-    <section class="hero">
-      <h2>Welcome to Your Digital Neighborhood</h2>
-      <p>Connect, share, and grow with your local community and beyond.</p>
-      <Link to="/signup" class="cta-button">Join NeighborLink</Link>
-    </section>
-  
-    <section class="features">
-      <h3>Discover Our Features</h3>
-      <div class="feature-grid">
-        {#each features as feature}
-          <div class="feature-card">
-            <svelte:component this={feature.icon} class="feature-icon"/>
-            <h4>{feature.title}</h4>
-            <p>{feature.description}</p>
-            <Link to={feature.link} class="learn-more">Learn More</Link>
-          </div>
-        {/each}
-      </div>
-    </section>
-  
-    <section class="events">
-      <h3>Upcoming Events</h3>
-      <div class="event-grid">
-        {#each events as event}
-          <div class="event-card">
-            <h4>{event.title}</h4>
-            <p class="event-date">{event.date}</p>
-            <p>{event.attendees} attendees</p>
-            <button class="rsvp-button">RSVP</button>
-          </div>
-        {/each}
-      </div>
-    </section>
+  import { Users, Coffee, Calendar, MessageSquare } from 'lucide-svelte';
+  import { fade } from 'svelte/transition';
+
+  const upcomingEvents = [
+    {
+      id: 1,
+      title: 'Community Garden Planting Day',
+      date: 'Dec 15, 2023',
+      time: '10:00 AM',
+      icon: '🌻',
+      attendees: 25
+    },
+    {
+      id: 2,
+      title: 'Local Author Book Signing',
+      date: 'Dec 18, 2023',
+      time: '2:00 PM',
+      icon: '📚',
+      attendees: 40
+    },
+    {
+      id: 3,
+      title: 'Neighborhood Cleanup Initiative',
+      date: 'Dec 21, 2023',
+      time: '9:00 AM',
+      icon: '🧹',
+      attendees: 15
+    }
+  ];
+</script>
+
+<svelte:head>
+  <title>NeighborLink - Home</title>
+</svelte:head>
+
+<div class="min-h-screen flex flex-col" in:fade>
+  <!-- Hero Section -->
+  <div class="flex justify-center">
+    <div class="bg-[#DDEAFD] w-[70%] py-16 px-4 text-center">
+      <h1 class="text-4xl font-bold mb-4">Welcome to Your Digital Neighborhood</h1>
+      <p class="text-lg text-gray-900 mb-8">Connect, share, and grow with your local community and beyond.</p>
+      <button class="bg-[#4C7BFF] text-white text-lg font-semibold px-6 py-2 rounded hover:bg-blue-600 transition-colors">
+        Join NeighborLink
+      </button>
+    </div>
   </div>
-  
-  <style>
-    .home-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-  
-    .hero {
-      background-color: #e9ecef;
-      padding: 4rem 0;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-  
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-  
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-  
-    .cta-button {
-      display: inline-block;
-      background-color: #3498db;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-  
-    .cta-button:hover {
-      background-color: #2980b9;
-    }
-  
-    .features, .events {
-      margin-bottom: 4rem;
-    }
-  
-    .features h3, .events h3 {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-  
-    .feature-grid, .event-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-  
-    .feature-card, .event-card {
-      background-color: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-  
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 1rem;
-      color: #3498db;
-    }
-  
-    .feature-card h4, .event-card h4 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-  
-    .feature-card p, .event-card p {
-      margin-bottom: 1rem;
-    }
-  
-    .learn-more {
-      color: #3498db;
-      text-decoration: none;
-    }
-  
-    .event-date {
-      color: #666;
-      font-style: italic;
-    }
-  
-    .rsvp-button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-  
-    .rsvp-button:hover {
-      background-color: #2980b9;
-    }
-  
-    @media (max-width: 768px) {
-      .hero h2 {
-        font-size: 2rem;
-      }
-  
-      .hero p {
-        font-size: 1rem;
-      }
-  
-      .feature-grid, .event-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-  
-  
+
+  <!-- Features Section -->
+  <div class="max-w-7xl mx-auto px-4 py-16 w-full">
+    <h2 class="text-2xl font-bold text-center mb-12">Discover Our Features</h2>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="bg-white p-6 rounded shadow">
+        <div class="text-[#4C7BFF] mb-4">
+          <Users size={24} />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Virtual Spaces</h3>
+        <p class="text-gray-600 text-sm">Join topic-based rooms and connect with like-minded individuals.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded shadow">
+        <div class="text-[#4C7BFF] mb-4">
+          <Coffee size={24} />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Coffee Chats</h3>
+        <p class="text-gray-600 text-sm">Have spontaneous 1-on-1 chats with community members.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded shadow">
+        <div class="text-[#4C7BFF] mb-4">
+          <Calendar size={24} />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Local Events</h3>
+        <p class="text-gray-600 text-sm">Discover and join events happening in your area.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded shadow">
+        <div class="text-[#4C7BFF] mb-4">
+          <MessageSquare size={24} />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Community Forums</h3>
+        <p class="text-gray-600 text-sm">Engage in ongoing, structured discussions on various topics.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming Events Section -->
+  <div class="max-w-7xl mx-auto px-4 pb-16 w-full">
+    <h2 class="text-2xl font-bold text-center mb-12">Upcoming Events</h2>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {#each upcomingEvents as event}
+        <div class="bg-white p-6 rounded shadow">
+          <div class="text-4xl mb-4">{event.icon}</div>
+          <h3 class="font-semibold text-lg mb-2">{event.title}</h3>
+          <p class="text-gray-600 text-sm mb-2">{event.date} at {event.time}</p>
+          <p class="text-gray-600 text-sm mb-4">{event.attendees} attendees</p>
+          <button class="bg-[#4C7BFF] text-white px-4 py-1 rounded text-sm hover:bg-blue-600 transition-colors">
+            RSVP
+          </button>
+        </div>
+      {/each}
+    </div>
+  </div>
+</div>
+
+<style>
+  :global(body) {
+    background-color: #f8fafc;
+  }
+</style>
+
