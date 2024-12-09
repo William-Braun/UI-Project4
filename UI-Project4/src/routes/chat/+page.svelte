@@ -3,6 +3,7 @@
 
   let isMatching = false;
   let matchFound = false;
+  let checkFound = false;
   let selectedInterests = [];  // Array to store selected interests
   let userInterests = ['Gardening', 'Books', 'Tech', 'Fitness', 'Cooking', 'History'];
 
@@ -12,7 +13,7 @@
     { name: 'Alex Jones', interests: ['Cooking', 'History'] },
   ];
 
-  // Toggle the selected interest (add/remove from the array)
+  // Toggle the selected interest
   function toggleInterest(interest) {
     if (selectedInterests.includes(interest)) {
       selectedInterests = selectedInterests.filter(i => i !== interest);
@@ -23,42 +24,48 @@
 
   // Find matches based on selected interests
   function findMatches() {
-    return mockMatches.filter(match => 
+    return mockMatches.filter(match =>
       match.interests.some(interest => selectedInterests.includes(interest))
     );
   }
 
-  // Start matching function (simulates a match)
+  // Start matching function 
   function startMatching() {
     isMatching = true;
-    matchFound = false;  // Reset matchFound before starting matching
+    matchFound = false; 
+    checkFound = false;
+    console.log("Matching started...");
 
     // Simulate a matching process with a timeout
     setTimeout(() => {
-      const matches = findMatches(); // Get matching results
-      matchFound = matches.length > 0; // If matches found, set matchFound to true
-
-      if (matchFound) {
-        // If matches are found, store them for display
-        mockMatches = matches;
+      const matches = findMatches(); 
+      if (matches.length > 0) {
+        matchFound = true;  
+        mockMatches = matches; 
+        console.log("Matches found:", matches);
+      } else {
+        matchFound = false; 
+        console.log("No matches found.");
       }
-      
-      isMatching = false; // Stop the matching process after timeout
-    }, 2000); // Adjusted timeout to 2 seconds for quicker testing
+
+      isMatching = false; 
+      checkFound = true;
+    }, 2000); // Simulate matching for 2 seconds
   }
 
-  // Go back to the interests selection (reset the matching state)
+  // Go back to the interests selection
   function goBackToChat() {
     isMatching = false;
-    matchFound = false;
-    selectedInterests = [];  // Optionally reset the selected interests too
+    matchFound = false;  
+    checkFound = false;
+    selectedInterests = []; 
     mockMatches = [
       { name: 'John Doe', interests: ['Books', 'Tech'] },
       { name: 'Jane Smith', interests: ['Gardening', 'Fitness'] },
       { name: 'Alex Jones', interests: ['Cooking', 'History'] },
-    ];  // Reset mock matches
+    ];  // Reset mock matches to initial state
+    console.log("Back to interests page.");
   }
-
 </script>
 
 <svelte:head>
@@ -70,7 +77,7 @@
   <p class="text-lg mb-8">Connect with a random community member for a casual 1-on-1 chat!</p>
 
   <div class="bg-white p-8 rounded-lg shadow-md">
-    {#if !isMatching && !matchFound}
+    {#if !isMatching && !checkFound} 
       <div>
         <h2 class="text-xl mb-4">Select Your Interests</h2>
         <div class="flex flex-wrap justify-center gap-4 mb-6">
@@ -96,7 +103,7 @@
       <p class="text-xl mb-4">Finding a match...</p>
       <div class="loader mx-auto"></div>
     {:else}
-      {#if matchFound}
+      {#if matchFound} <!-- When match is found -->
         <p class="text-xl mb-4">Match found! Check out the matches below:</p>
         {#each mockMatches as match}
           <div class="bg-gray-100 p-4 mb-4 rounded-md flex items-center">
@@ -106,7 +113,7 @@
             </div>
           </div>
         {/each}
-      {:else}
+      {:else} <!-- When no match is found -->
         <p class="text-xl mb-4">No matches found. Try selecting different interests.</p>
       {/if}
       <!-- Back Button -->
