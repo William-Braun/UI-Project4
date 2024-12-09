@@ -9,10 +9,10 @@
   <header class="bg-[#4C7BFF] text-white">
     <nav class="max-w-7xl mx-auto px-6 py-4">
       <ul class="flex space-x-6 justify-center">
-        <li><a href="/" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/' ? 'font-semibold' : ''}">Home</a></li>
-        <li><a href="/spaces" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/spaces' ? 'font-semibold' : ''}">Spaces</a></li>
-        <li><a href="/events" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/events' ? 'font-semibold' : ''}">Events</a></li>
-        <li><a href="/chat" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/chat' ? 'font-semibold' : ''}">Chat</a></li>
+        <li><a href="/" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/' ? 'font-bold' : ''}">Home</a></li>
+        <li><a href="/spaces" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/spaces' ? 'font-bold' : ''}">Spaces</a></li>
+        <li><a href="/events" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/events' ? 'font-bold' : ''}">Events</a></li>
+        <li><a href="/chat" class="hover:text-blue-100 hover:underline text-lg {$page.url.pathname === '/chat' ? 'font-bold' : ''}">Chat</a></li>
       </ul>
     </nav>
   </header>
